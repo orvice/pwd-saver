@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\SaverPasswordToDynamodb;
 use ErrorException;
 use Illuminate\Console\Command;
 
@@ -58,7 +59,15 @@ class SaverPassword extends Command
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
                 // process the line read.
-
+                $this->info("process $line");
+                $ary = explode('----', $line);
+                if (count($ary) != 2) {
+                    $this->error("data wrong,skip");
+                    continue;
+                }
+                $email = $ary[0];
+                $password = $ary[1];
+                $this->dispatch(new SaverPasswordToDynamodb($email, $password));
             }
             fclose($handle);
         } else {

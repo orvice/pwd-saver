@@ -12,7 +12,7 @@ class Storage
     public function __construct()
     {
         $this->client = Aws::createDynamodb();
-        $this->tableName = 'password';
+        $this->tableName = config('aws.password_table');
     }
 
     public function store($email,$password)

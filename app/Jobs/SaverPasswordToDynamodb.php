@@ -6,6 +6,7 @@ use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Services\Storage;
 
 class SaverPasswordToDynamodb extends Job implements ShouldQueue
 {
@@ -32,5 +33,7 @@ class SaverPasswordToDynamodb extends Job implements ShouldQueue
     public function handle()
     {
         //
+        $client = new Storage();
+        $client->store($this->email,$this->password);
     }
 }
