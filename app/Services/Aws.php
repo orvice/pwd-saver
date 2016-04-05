@@ -8,16 +8,13 @@ class Aws
     {
         $sdk = new Sdk([
             'credentials' => array(
-                'key' => Config::get('aws_access_key_id'),
-                'secret' => Config::get('aws_secret_access_key'),
+                'key' => config('aws.key'),
+                'secret' => config('aws.secret'),
             ),
-            'region' => Config::get('aws_region'),
+            'region' => config('aws.region'),
             'version' => 'latest',
             'DynamoDb' => [
-                'region' => Config::get('aws_region')
-            ],
-            'Ses' => [
-                'region' => Config::get('aws_ses_region')
+                'region' => config('aws.region')
             ],
         ]);
         return $sdk;
