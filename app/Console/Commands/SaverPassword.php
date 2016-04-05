@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use ErrorException;
 use Illuminate\Console\Command;
 
 class SaverPassword extends Command
@@ -38,6 +39,7 @@ class SaverPassword extends Command
     public function handle()
     {
         $path = $this->argument('path');
+        $this->info("input path: $path");
         $files = scandir($path);
         foreach ($files as $fileName) {
             $this->info("process file: $fileName");
@@ -48,7 +50,11 @@ class SaverPassword extends Command
 
     public function handleFile($file)
     {
-        $handle = fopen($file, "r");
+        try {
+            $handle = fopen($file, "r");
+        } catch (ErrorException $e) {
+            $this->error("open file failed $file");
+        }
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
                 // process the line read.
