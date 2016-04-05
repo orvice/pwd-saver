@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Aws\Sdk;
+
 class Aws
 {
     public static function createAwsClient()
