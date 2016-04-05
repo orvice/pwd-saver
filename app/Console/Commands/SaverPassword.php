@@ -39,8 +39,25 @@ class SaverPassword extends Command
     {
         $path = $this->argument('path');
         $files = scandir($path);
-        foreach($files as $file) {
-            $this->info("process file: $file");
+        foreach ($files as $fileName) {
+            $this->info("process file: $fileName");
+            $file = $path . $fileName;
+            $this->handleFile($file);
+        }
+    }
+
+    public function handleFile($file)
+    {
+        $handle = fopen($file, "r");
+        if ($handle) {
+            while (($line = fgets($handle)) !== false) {
+                // process the line read.
+
+            }
+            fclose($handle);
+        } else {
+            // error opening the file.
+            $this->error("open file failed $file");
         }
     }
 }
