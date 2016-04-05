@@ -37,6 +37,10 @@ class SaverPassword extends Command
      */
     public function handle()
     {
-        //
+        $path = $this->argument('path');
+        $files = scandir($path);
+        foreach($files as $file) {
+            $this->info("process file: $file");
+        }
     }
 }
