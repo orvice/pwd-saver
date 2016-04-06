@@ -46,6 +46,10 @@ class SaverPassword extends Command
         $this->info("input path: $path");
         $files = scandir($path);
         foreach ($files as $fileName) {
+            if(strlen($fileName) < 3){
+                $this->info("file name too short ,skip");
+                continue;
+            }
             $this->info("process file: $fileName");
             $file = $path . $fileName;
             $this->handleFile($file);
