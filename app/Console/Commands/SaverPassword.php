@@ -46,7 +46,7 @@ class SaverPassword extends Command
         $this->info("input path: $path");
         $files = scandir($path);
         foreach ($files as $fileName) {
-            if(strlen($fileName) < 3){
+            if (strlen($fileName) < 3) {
                 $this->info("file name too short ,skip");
                 continue;
             }
@@ -62,6 +62,7 @@ class SaverPassword extends Command
             $handle = fopen($file, "r");
         } catch (ErrorException $e) {
             $this->error("open file failed $file");
+            return false;
         }
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
